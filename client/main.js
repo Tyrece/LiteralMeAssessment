@@ -42,6 +42,31 @@ Template.mainBody.events({
 		console.log ("delete",bookID)
 		});
 	},
+
+	'click .js-view'(){
+		$('#viewModal').modal("show");
+		console.log ("hello")
+	},
+
+
+	'click .js-like'(event, instance) { 
+    var profID = this._id;
+    var numLikes = userDB.findOne({_id:  profID}).like;
+    if (!numLikes) {
+      numLikes = 0;
+    }
+    numLikes = numLikes + 1;  
+    userDB.update({_id:profID}, {$set:{'like': numLikes}});
+  },
+  'click .js-dislike'(event, instance){
+    var profID = this._id;
+    var numDisLikes = userDB.findOne({_id:  profID}).dislike;
+    if (!numDisLikes) {
+      numDisLikes = 0;
+    }
+    numDisLikes = numDisLikes + 1;  
+    userDB.update({_id:profID}, {$set:{'dislike': numDisLikes}});
+  },
 });
 
 
@@ -72,5 +97,35 @@ Template.editBook.events({
 
 		userDB.insert({"editTitle": editTitle, "editAuthor": editAuthor, "editDescription": editDescription, "editimage": editimage})
 		console.log("save", editTitle, editAuthor, editDescription, editimage)
+	},
+});
+
+
+
+Template.viewbook.events({
+	'click .js-like'(event, instance) { 
+    var profID = this._id;
+    var numLikes = userDB.findOne({_id:  profID}).like;
+    if (!numLikes) {
+      numLikes = 0;
+    }
+    numLikes = numLikes + 1;  
+    userDB.update({_id:profID}, {$set:{'like': numLikes}});
+  },
+  'click .js-dislike'(event, instance){
+    var profID = this._id;
+    var numDisLikes = userDB.findOne({_id:  profID}).dislike;
+    if (!numDisLikes) {
+      numDisLikes = 0;
+    }
+    numDisLikes = numDisLikes + 1;  
+    userDB.update({_id:profID}, {$set:{'dislike': numDisLikes}});
+  },
+
+});
+
+Template.viewbook.helpers({
+	AllBooks(){
+		return userDB.find({});
 	},
 });

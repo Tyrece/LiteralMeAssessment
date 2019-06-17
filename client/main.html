@@ -10,6 +10,7 @@
   <div class="container">
     {{> navBar}}
     {{> mainBody}}
+    {{> viewbook}}
     {{> footerBar}}
   </div>
 </body>
@@ -76,12 +77,14 @@
                 <p class="card-text">{{Description}}</p>
                 <div class="d-flex justify-content-between align-items-center">
                   
-                  <button type="button" class="btn btn-sm"><i class="zmdi zmdi-thumb-up"></i></button>
-                  <button type="button" class="btn btn-sm"><i class="zmdi zmdi-thumb-down"></i></button>
+                  <button type="button" class="btn btn-sm"><i class="zmdi zmdi-thumb-up js-like"></i></button>
+                  <h1 class="rateMe">{{like}}</h1>
+                  <button type="button" class="btn btn-sm"><i class="zmdi zmdi-thumb-down js-dislike"></i></button>
+                  <h1 class="rateMe">{{dislike}}</h1>
                   
 
                   <div class="btn-group">
-                    <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                    <button type="button" class="btn btn-sm btn-outline-secondary js-view">View</button>
 
                     {{> editBook}}
 
@@ -235,4 +238,57 @@
     </div>
   </div>
 </div>
+</template>
+
+<template name="viewbook">
+  <!-- Modal -->
+<div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="viewModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="viewModalLabel"></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        {{#each AllBooks}}
+          <div class="col-md-12" id="{{_id}}"      >
+            <div  class="card mb-4 shadow-sm" >
+              <p class="card-text">{{Title}}</p>
+              <img class="imagebk" src='{{image}}' alt="temp photo">
+              <div class="card-body">
+                <p class="card-text">{{Author}}</p>
+                <p class="card-text">{{Description}}</p>
+                <div class="d-flex justify-content-between align-items-center">
+                  <div class="col">
+                  <button type="button" class="btn btn-sm"><i class="zmdi zmdi-thumb-up js-like"></i></button>
+                  <h1 class="rateMe">{{like}}</h1>
+                    </div>
+
+                  <div class="col">
+                  <button type="button" class="btn btn-sm"><i class="zmdi zmdi-thumb-down js-dislike"></i></button>
+                  <h1 class="rateMe">{{dislike}}</h1>
+                  
+                
+                   
+                  </div>
+                  
+                </div>
+              </div>
+           
+          </div> <!-- /col -->
+        </div>
+          {{/each}}
+      
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+       
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+
 </template>
